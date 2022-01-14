@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{% url 'user-records' object.author.username %}">{{ object.author }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        {% if object.author == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'record-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'record-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ object.niches }}</h2>
+      <p class="article-content">{{ object.project }}</p>
+      <p class="article-content">{{ object.token }}</p>
+      <p class="article-content">{{ object.ecosystem }}</p>
+      <p class="article-content">{{ object.launch }}</p>
+      <p class="article-content">{{ object.categpory }}</p>
+      <p class="article-content">{{ object.website }}</p>
+      <p class="article-content">{{ object.twitter }}</p>
+      <p class="article-content">{{ object.overview }}</p>
+      <p class="article-content">{{ object.comment }}</p>
+      <p class="article-content">{{ object.rate }}</p>
+
+      <p class="article-content">{{ object.content|safe }}</p>
+            <p class="article-content">topics: {% for keyword in record.keywords.all %}
+            <a href="{% url 'keyword-detail' keyword.id %}">{{ keyword.name }}</a>
+            {% endfor %}</p>
+    </div>
+  </article>
+{% endblock content %}
